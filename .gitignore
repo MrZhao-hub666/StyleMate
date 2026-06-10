@@ -36,3 +36,11 @@ Thumbs.db
 
 # ====== 日志 ======
 *.log
+
+# ====== 边端测试 & 模型 ======
+edge/test.*
+edge/*.pt
+edge/runs/
+
+# ====== 前端缓存 ======
+frontend/.vite/
