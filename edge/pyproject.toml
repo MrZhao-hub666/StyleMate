@@ -1,0 +1,24 @@
+[project]
+name = "stylemate-edge"
+version = "0.1.0"
+description = "StyleMate 边端 YOLO 衣物七维属性解析引擎"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.136.3",
+    "matplotlib>=3.10.9",
+    "numpy>=2.4.6",
+    "opencv-python>=4.13.0.92",
+    "pillow>=12.2.0",
+    "requests>=2.34.2",
+    "scikit-image>=0.26.0",
+    "scikit-learn>=1.9.0",
+    "ultralytics>=8.4.60",
+    "uvicorn>=0.49",
+]
+
+[project.scripts]
+stylemate-edge = "main:main"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
