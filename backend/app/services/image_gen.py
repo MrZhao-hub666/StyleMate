@@ -32,10 +32,27 @@ async def image_to_image(
         print(f"{PFX} ❌ DASHSCOPE_API_KEY 未配置", flush=True)
         return {"error": "未配置 DASHSCOPE_API_KEY", "model": model}
 
-    # 确保有 data:image/jpeg;base64, 前缀（万相要求此格式）
-    img_b64 = image_base64
-    if not image_base64.startswith("data:image/"):
-        img_b64 = f"data:image/jpeg;base64,{image_base64}"
+    # 压缩大图（超过1MB的图片缩放到1024宽，避免DashScope断连）
+    MAX_SIZE = 800 * 1024  # 800KB
+    b64 = image_base64.split(",")[-1] if "," in image_base64 else image_base64
+    if len(b64) > MAX_SIZE:
+        try:
+            from PIL import Image
+            import io
+            img_data = base64.b64decode(b64)
+            img = Image.open(io.BytesIO(img_data))
+            w, h = img.size
+            if max(w, h) > 1024:
+                ratio = 1024 / max(w, h)
+                img = img.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+            buf = io.BytesIO()
+            img.convert("RGB").save(buf, format="JPEG", quality=75)
+            b64 = base64.b64encode(buf.getvalue()).decode()
+            print(f"{PFX} 图片压缩: {w}x{h} → {img.size[0]}x{img.size[1]} ({len(img_data)}→{len(buf.getvalue())} bytes)", flush=True)
+        except ImportError:
+            pass  # PIL 不可用时跳过压缩
+
+    img_b64 = f"data:image/jpeg;base64,{b64}"
 
     print(f"{PFX} 图生图: model={model} face_len={len(img_b64)} prompt={prompt[:60]}...", flush=True)
 
