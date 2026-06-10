@@ -76,14 +76,14 @@ DEEPSEEK_API_KEY=你的DeepSeek密钥
 DASHSCOPE_API_KEY=你的阿里DashScope密钥
 ```
 
-### 3. 一键启动（三种方式）
+### 3. 一键启动（两种方式）
 
 #### 🖱 方式一：双击 bat（最简单）
 
 ```
 双击 start-edge.bat     → 启动边端 YOLO (:9001)
 双击 start-backend.bat  → 启动后端 API  (:9000)
-cd frontend && npm run dev  → 启动前端    (:5173)
+cd frontend && npm run dev  → 启动前端  (:5173)
 ```
 
 > 首次使用需先执行下方步骤 4 安装依赖。
@@ -92,7 +92,7 @@ cd frontend && npm run dev  → 启动前端    (:5173)
 
 ```bash
 # 终端 1 — 边端
-cd edge && uv run uvicorn server:app --host 0.0.0.0 --port 9001
+cd edge && uv run uvicorn server:app --host 0.0.0.0 --port 9001 --reload
 
 # 终端 2 — 后端
 cd backend && uv run uvicorn app.main:app --host 0.0.0.0 --port 9000 --reload
