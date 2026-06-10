@@ -17,7 +17,7 @@ AI 穿搭助手，三端协作：前端 Vue3、后端 FastAPI、边端 YOLO。
 | 模型 | 配置变量 | 调用位置 |
 |------|---------|---------|
 | **DeepSeek `deepseek-v4-flash`** | `DEEPSEEK_MODEL` | 搭配推荐、写真 prompt 优化 |
-| **qwen3.7-plus** | `DASHSCOPE_VISION_MODEL` | 穿搭评价、云端视觉精细识别 |
+| **qwen3-vl-flash** | `DASHSCOPE_VISION_MODEL` | 穿搭评价、云端视觉精细识别 |
 | **万相 2.7 `wan2.7-image`** | `DASHSCOPE_IMAGE_MODEL` | 创意写真图像生成 |
 | **万相 2.7 `wan2.7-image-pro`** | `DASHSCOPE_IMAGE_MODEL_PRO` | 搭配推荐预览图生成 |
 | **sentence-transformers** | 本地模型 | 知识库向量检索 |

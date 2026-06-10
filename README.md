@@ -16,7 +16,7 @@
 
 ## ✨ 一句话介绍
 
-**上传你的照片和衣橱，AI 自动搭配、上身试穿预览、穿搭评分——本地 YOLO 识别 + 云端大模型推理，边云协同。**
+**您的专属 AI 穿搭顾问，拍照即分析，一键试穿预览。**
 
 ---
 
@@ -63,7 +63,7 @@
 
 ### 1. 克隆项目
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/MrZhao-hub666/StyleMate.git
 cd StyleMate
 ```
 
@@ -75,32 +75,38 @@ DEEPSEEK_API_KEY=你的DeepSeek密钥
 DASHSCOPE_API_KEY=你的阿里DashScope密钥
 ```
 
-### 3. 启动边端（YOLO 分析服务）
-```bash
-cd edge
-uv sync                     # 首次安装依赖（自动下载 YOLO 模型）
-uv run uvicorn server:app --host 0.0.0.0 --port 9001
-```
-或双击 `start-edge.bat`
+### 3. 一键启动（三种方式）
 
-### 4. 启动后端（云端 API）
-```bash
-cd backend
-uv sync                     # 首次安装依赖
-uv run uvicorn app.main:app --host 0.0.0.0 --port 9000 --reload
+#### 🖱 方式一：双击 bat（最简单）
 ```
-或双击 `start-backend.bat`
+双击 start-edge.bat     → 启动边端 YOLO (:9001)
+双击 start-backend.bat  → 启动后端 API  (:9000)
+cd frontend && npm run dev  → 启动前端    (:5173)
+```
+> 首次使用需先执行下方步骤 4 安装依赖。
 
-### 5. 启动前端
+#### ⌨ 方式二：命令行（推荐开发时）
 ```bash
-cd frontend
-npm install                 # 首次安装依赖
-npm run dev
+# 终端 1 — 边端
+cd edge && uv run uvicorn server:app --host 0.0.0.0 --port 9001
+
+# 终端 2 — 后端
+cd backend && uv run uvicorn app.main:app --host 0.0.0.0 --port 9000 --reload
+
+# 终端 3 — 前端
+cd frontend && npm run dev
+```
+
+### 4. 首次安装依赖
+```bash
+cd edge && uv sync          # Python 依赖 + 自动下载 YOLO 模型
+cd ../backend && uv sync     # Python 依赖
+cd ../frontend && npm install # Node 依赖
 ```
 
 浏览器打开 `http://localhost:5173`
 
-> 💡 **提示**：边端 YOLO 默认使用 ultralytics 预训练权重做人体检测，衣物区域基于几何估算（上半身/下半身/鞋履）。如需更高精度的衣物识别，建议使用自己的衣物标注数据对 YOLO 做微调训练，再将模型文件替换到 `edge/` 目录。
+> 💡 **提示**：边端 YOLO 默认使用 ultralytics 预训练权重做人体检测，衣物区域基于几何估算。如需更高精度，可用自己的衣物标注数据微调 YOLO，替换到 `edge/` 目录。
 
 ---
 
