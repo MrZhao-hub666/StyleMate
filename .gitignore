@@ -44,3 +44,6 @@ edge/runs/
 
 # ====== 前端缓存 ======
 frontend/.vite/
+
+# ====== 本地脚本 ======
+scripts/
