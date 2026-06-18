@@ -8,6 +8,7 @@
   <a href="#-快速开始"><strong>快速开始</strong></a> ·
   <a href="#-技术架构"><strong>架构</strong></a> ·
   <a href="#-项目结构"><strong>目录</strong></a> ·
+  <a href="#部署到云服务器"><strong>部署</strong></a> ·
   <a href="#-截图"><strong>截图</strong></a>
 </p>
 
@@ -115,6 +116,24 @@ cd ../frontend && npm install # Node 依赖
 
 ---
 
+## 部署到云服务器
+
+前端和后端支持 Docker 一键部署，边端始终在用户本机。
+
+```bash
+# 1. 修改 frontend/.env.production 中的服务器 IP
+# 2. 上传项目到服务器
+scp -r StyleMate/ root@你的服务器IP:/opt/
+
+# 3. 服务器上部署
+cd /opt/StyleMate
+docker compose up -d
+```
+
+部署后访问 `http://你的服务器IP`，边端照常在本机启动。
+
+---
+
 ## 📁 项目结构
 
 ```
@@ -148,7 +167,11 @@ StyleMate/
 │
 ├── start-backend.bat        # 一键启动后端
 ├── start-edge.bat           # 一键启动边端
-├── ARCHITECTURE.md          # 详细架构文档
+├── docker-compose.yml        # Docker 部署编排
+├── frontend/Dockerfile       # 前端容器构建
+├── frontend/nginx.conf       # Nginx 反向代理配置
+├── backend/Dockerfile        # 后端容器构建
+├── ARCHITECTURE.md           # 详细架构文档
 └── .gitignore
 ```
 

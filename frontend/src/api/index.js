@@ -1,13 +1,16 @@
 import axios from 'axios'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 const api = axios.create({
-  baseURL: '',
+  baseURL: API_BASE,
   timeout: 120000,
 })
 
-// 边端分析服务（本地 localhost:9001，不走 Vite 代理）
+// 边端分析服务（始终在用户本机）
+const EDGE_URL = import.meta.env.VITE_EDGE_URL || 'http://localhost:9001'
 const edgeAxios = axios.create({
-  baseURL: 'http://localhost:9001',
+  baseURL: EDGE_URL,
   timeout: 60000,
 })
 
