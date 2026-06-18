@@ -32,7 +32,14 @@ async function review() {
   if (!outfitData.value.length) { ElMessage.warning('请先拍照或上传穿搭'); return }
   loading.value = true
   try {
-    const r = await api.review({ outfit_items: outfitData.value, occasion: occasion.value })
+    // 1. 先在浏览器调边端 YOLO（部署后服务器调不到本机边端）
+    let edgeAttrs = null
+    const b64 = outfitData.value[0]?.crop_base64
+    if (b64) {
+      try { const er = await api.analyzeImage(b64); edgeAttrs = er.data } catch {}
+    }
+    // 2. 图片 + 边端属性一起发给服务器
+    const r = await api.review({ outfit_items: outfitData.value, occasion: occasion.value, edge_attributes: edgeAttrs })
     result.value = r.data
   } catch { ElMessage.error('评价失败') }
   finally { loading.value = false }

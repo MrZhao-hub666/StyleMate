@@ -2,13 +2,14 @@
 用户风格画像服务 — 聚合相册+衣橱数据，生成颜色/图案/品类偏好，供 LLM prompt 注入
 """
 
+import os
 import base64
 import httpx
 from collections import Counter
 from datetime import datetime
 
-# 边端分析服务地址（本地 localhost:9001）
-_EDGE_URL = "http://localhost:9001/analyze"
+# 边端分析服务地址
+_EDGE_URL = os.getenv("EDGE_URL", "http://localhost:9001") + "/analyze"
 _PFX = "[style_profiler]"
 
 
