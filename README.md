@@ -15,14 +15,14 @@
 
 ## 🎯 功能一览
 
-| 功能 | 说明 |
-|------|------|
-| 📸 **个人相册** | 上传照片 → 边端 YOLO 识别人脸和衣物，自动打标签 |
-| 👗 **个人衣橱** | 拍照入库 → YOLO 分析颜色/图案/面料 → 大模型看图校验，精确到领型袖型 |
-| 🧠 **风格画像** | 自动聚合历史数据，学习你的颜色偏好、穿搭风格，删数据自动清零 |
-| ✨ **AI 搭配推荐** | 选场合 → DeepSeek 出 3 套方案 → 万相 2.7-Pro 生成上身试穿预览图，三联可下载 |
-| 🎨 **创意写真** | 上传照片 + 描述 → AI 保留人脸，换装换场景，下载到本地 |
-| 📝 **AI 穿搭评价** | 拍照当前穿搭 → YOLO 参考 + 视觉模型看图打分，亮点/不足/建议一目了然 |
+| 功能             | 说明                                                  |
+| -------------- | --------------------------------------------------- |
+| 📸 **个人相册**    | 上传照片 → 边端 YOLO 识别人脸和衣物，自动打标签                        |
+| 👗 **个人衣橱**    | 拍照入库 → YOLO 分析颜色/图案/面料 → 大模型看图校验，精确到领型袖型            |
+| 🧠 **风格画像**    | 自动聚合历史数据，学习你的颜色偏好、穿搭风格，删数据自动清零                      |
+| ✨ **AI 搭配推荐**  | 选场合 → DeepSeek 出 3 套方案 → 万相 2.7-Pro 生成上身试穿预览图，三联可下载 |
+| 🎨 **创意写真**    | 上传照片 + 描述 → AI 保留人脸，换装换场景，下载到本地                     |
+| 📝 **AI 穿搭评价** | 拍照当前穿搭 → YOLO 参考 + 视觉模型看图打分，亮点/不足/建议一目了然            |
 
 ---
 
@@ -93,11 +93,11 @@ uv run uvicorn server:app --host 0.0.0.0 --port 9001
 └──────────────────────────┘          └───────────────┘
 ```
 
-| 大模型 | 服务商 | 用途 |
-|--------|--------|------|
+| 大模型                          | 服务商          | 用途                |
+| ---------------------------- | ------------ | ----------------- |
 | DeepSeek `deepseek-v4-flash` | deepseek.com | 搭配推荐、写真 prompt 优化 |
-| 通义千问 `qwen3-vl-flash` | 阿里 DashScope | 穿搭视觉评价、衣橱云端校验 |
-| 万相 2.7-Pro | 阿里 DashScope | 上身试穿预览、创意写真生成 |
+| 通义千问 `qwen3-vl-flash`        | 阿里 DashScope | 穿搭视觉评价、衣橱云端校验     |
+| 万相 2.7-Pro                   | 阿里 DashScope | 上身试穿预览、创意写真生成     |
 
 详细架构见 [ARCHITECTURE.md](ARCHITECTURE.md)。
 
@@ -140,24 +140,28 @@ StyleMate/
 
 ## 📸 界面截图
 
-> 将截图放入 `docs/screenshots/` 目录。
-
 ### 首页 & 个人资料
+
 ![首页](docs/screenshots/home.png)
 
 ### 个人相册
+
 ![相册](docs/screenshots/gallery.png)
 
 ### 个人衣橱
+
 ![衣橱](docs/screenshots/wardrobe.png)
 
 ### AI 搭配推荐
+
 ![搭配推荐](docs/screenshots/recommend.png)
 
 ### 创意写真
+
 ![创意写真](docs/screenshots/portrait.png)
 
 ### AI 穿搭评价
+
 ![穿搭评价](docs/screenshots/review.png)
 
 ---
@@ -166,12 +170,12 @@ StyleMate/
 
 所有模型配置集中在 `backend/app/config.py`：
 
-| 变量 | 说明 | 默认值 |
-|------|------|--------|
-| `DEEPSEEK_MODEL` | 文本推理模型 | `deepseek-v4-flash` |
-| `DASHSCOPE_VISION_MODEL` | 视觉理解模型 | `qwen3-vl-flash` |
-| `DASHSCOPE_IMAGE_MODEL` | 图像生成模型 | `wan2.7-image` |
-| `DASHSCOPE_IMAGE_MODEL_PRO` | 预览图生成模型 | `wan2.7-image-pro` |
+| 变量                          | 说明      | 默认值                 |
+| --------------------------- | ------- | ------------------- |
+| `DEEPSEEK_MODEL`            | 文本推理模型  | `deepseek-v4-flash` |
+| `DASHSCOPE_VISION_MODEL`    | 视觉理解模型  | `qwen3-vl-flash`    |
+| `DASHSCOPE_IMAGE_MODEL`     | 图像生成模型  | `wan2.7-image`      |
+| `DASHSCOPE_IMAGE_MODEL_PRO` | 预览图生成模型 | `wan2.7-image-pro`  |
 
 ---
 
