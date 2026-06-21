@@ -23,6 +23,9 @@ dependencies = [
 [project.scripts]
 stylemate-server = "app.main:app"
 
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
 [[tool.uv.index]]
 url = "https://mirrors.aliyun.com/pypi/simple/"
 default = true
@@ -30,4 +33,9 @@ default = true
 [[tool.uv.index]]
 name = "pypi"
 url = "https://pypi.org/simple/"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
 explicit = true
