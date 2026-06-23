@@ -1,3 +1,7 @@
+# ====== StyleMate 云端部署（后端 + 前端）======
+# 部署到云服务器：docker compose -f docker-compose.cloud.yml up -d
+# 边端 YOLO 在用户本机单独启动（bat / uv run / docker compose edge）
+
 services:
   backend:
     build:

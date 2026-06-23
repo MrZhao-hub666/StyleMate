@@ -124,24 +124,31 @@ DEEPSEEK_API_KEY=你的DeepSeek密钥
 DASHSCOPE_API_KEY=你的阿里DashScope密钥
 ```
 
-### 3. 启动
+### 3. 启动（仅云端：后端 + 前端）
 
 ```bash
-docker compose up -d
+docker compose -f docker-compose.cloud.yml up -d
 ```
 
 部署完成，浏览器访问 `http://你的服务器IP` 即可。
+
+> 云端 compose 文件只包含 FastAPI 后端和 Nginx 前端，不引入 YOLO/OpenCV 等繁重视觉依赖。
 
 ---
 
 ### 🖥️ 本机启动边端
 
-边端 YOLO 分析服务需要在用户本机运行（需要摄像头 + 本地算力）：
+边端 YOLO 分析服务在用户本机运行（需要摄像头），三种方式任选：
 
 ```bash
-cd edge
-uv sync                      # 首次安装依赖（自动下载 YOLO 模型）
-uv run uvicorn server:app --host 0.0.0.0 --port 9001
+# 方式一：bat 脚本（最简单）
+双击 start-edge.bat
+
+# 方式二：uv 命令行
+cd edge && uv run uvicorn server:app --host 0.0.0.0 --port 9001
+
+# 方式三：Docker（需在本机安装 Docker）
+docker compose -f docker-compose.edge.yml up -d
 ```
 
 ### 🔗 关联前后端
@@ -214,7 +221,8 @@ StyleMate/
 │   ├── color_analyzer.py       # K-means 颜色提取
 │   ├── texture_analyzer.py     # 图案面料分析 (Gabor/GLCM)
 │   ├── pyproject.toml
-│   └── uv.lock
+│   ├── uv.lock
+│   └── Dockerfile
 │
 ├── frontend/                   # 前端 (Vue 3 + Vite)
 │   ├── src/views/              # 页面组件
@@ -223,7 +231,10 @@ StyleMate/
 │   ├── Dockerfile
 │   └── nginx.conf
 │
-├── docker-compose.yml          # Docker 编排 (后端 + 前端)
+├── docker-compose.cloud.yml    # 云端编排 (后端 + 前端)
+├── docker-compose.edge.yml     # 边端编排 (YOLO 分析服务)
+├── start-backend.bat           # 本地一键启动后端
+├── start-edge.bat              # 本地一键启动边端
 ├── ARCHITECTURE.md             # 详细架构文档
 ├── .gitignore
 └── README.md
@@ -298,8 +309,8 @@ StyleMate/
 
 ```bash
 git pull
-docker compose build --no-cache backend
-docker compose up -d
+docker compose -f docker-compose.cloud.yml build --no-cache backend
+docker compose -f docker-compose.cloud.yml up -d
 ```
 
 ### 边端连接失败

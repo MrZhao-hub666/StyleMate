@@ -1,0 +1,12 @@
+# ====== StyleMate 边端 YOLO 分析服务 ======
+# 在本机启动：docker compose -f docker-compose.edge.yml up -d
+# 不依赖 GPU，CPU 即可运行
+
+services:
+  edge:
+    build:
+      context: ./edge
+      dockerfile: Dockerfile
+    ports:
+      - "9001:9001"
+    restart: unless-stopped

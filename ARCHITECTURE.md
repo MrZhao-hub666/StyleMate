@@ -282,7 +282,7 @@ Qwen 结果覆盖 YOLO → 更新 Clothing 全部字段 → needs_cloud=False
 
 ## 云部署架构
 
-服务器部署后端+前端，边端留在用户本机。边端调用由前端（浏览器）完成，避免服务器无法访问本机局域网。
+云端（后端+前端）通过 `docker-compose.cloud.yml` 部署在服务器上，不引入 YOLO/OpenCV 等视觉依赖。边端通过 `docker-compose.edge.yml` 或 bat 脚本在本机启动，调用由浏览器端完成，无需服务器访问本机局域网。
 
 ```
 ┌── 你的云服务器 ──┐          ┌── 用户本机 ──┐
@@ -299,8 +299,17 @@ Qwen 结果覆盖 YOLO → 更新 Clothing 全部字段 → needs_cloud=False
 
 ## 部署命令
 
+云端和边端分离部署：
+
 ```bash
-# 服务器上
+# 服务器上 — 仅启动云端（后端 + 前端），不引入 YOLO/OpenCV 依赖
 cd /opt/StyleMate
-docker compose up -d
+docker compose -f docker-compose.cloud.yml up -d
+
+# 用户本机 — 启动边端 YOLO（三种方式任选）
+双击 start-edge.bat
+# 或
+cd edge && uv run uvicorn server:app --host 0.0.0.0 --port 9001
+# 或 (Docker)
+docker compose -f docker-compose.edge.yml up -d
 ```
